@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  editor:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 80:8080
+    volumes:
+      - ./todo.yml:/tmp/todo.yml
+    environment:
+      - BASE_URL=/todoapi
+      - SWAGGER_JSON=/tmp/todo.yml

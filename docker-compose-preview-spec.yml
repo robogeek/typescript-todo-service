@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  nginx:
+    image: nginx
+    networks:
+      - openapi
+    volumes:
+      - .:/usr/share/nginx/html:ro
+
+  editor:
+    image: swaggerapi/swagger-ui
+    networks:
+      - openapi
+    ports:
+      - 80:8080
+    volumes:
+      - ./todo.yml:/tmp/todo.yml
+    environment:
+      - SWAGGER_JSON_URL=http://nginx/todo.yml
+      # - SWAGGER_JSON=/tmp/todo.yml
+
+networks:
+  openapi:

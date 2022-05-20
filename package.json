@@ -4,7 +4,10 @@
   "description": "REST service in TypeScript for simple TODO application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "edit-spec": "docker run -p 80:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/todo.yml swaggerapi/swagger-editor",
+    "preview-specification": "docker compose --file docker-compose-preview-spec.yml up",
+    "preview-specification-simple": "docker compose --file docker-compose-preview-spec-simple.yml up",
+    "docker-edit-specification": "docker compose --file docker-compose-edit-spec.yml up"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,14 @@
     "@types/node": "^17.0.34",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "debug": "^4.3.4",
+    "js-yaml": "^4.1.0",
+    "live-server": "^1.2.2",
+    "npm-run-all": "^4.1.5",
+    "save-dev": "^0.0.1-security",
+    "sequelize": "^6.19.0",
+    "sqlite3": "^5.0.8"
   }
 }
