@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  description: "A simple TODO application"
+  version: "0.0.1"
+  title: "Simple TODO"
+  contact:
+    name: David Herron
+    url: https://davidherron.com
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+# host: "petstore.swagger.io"
+# basePath: "/v1"
+# schemes:
+# - "https"
+# - "http"
+paths:
+  /todo:
+    post:
+      summary: "Create a TODO"
+      operationId: "createTodo"
+      x-exegesis-controller: todoController
+      # consumes:
+      # - "application/x-www-form-urlencoded"
+      # produces:
+      # - "application/json"
+      
+      requestBody:
+        description: Parameters for creating a TODO
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TodoPost"
+      responses:
+        "200":
+          description: "Successful"
+        "400":
+          description: "Invalid status value"
+  /todos/all:
+    get:
+      summary: "List all TODO items"
+      description: ""
+      operationId: "listTodos"
+      x-exegesis-controller: todoController
+      responses:
+        "200":
+          description: "Successful"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Todo"
+        "400":
+          description: "Invalid status value"
+  /todos/{id}:
+    get:
+      summary: "Find TODO by ID"
+      description: "Returns a single TODO"
+      operationId: "getTodoById"
+      x-exegesis-controller: todoController
+      parameters:
+      - name: id
+        in: path
+        description: "ID of Todo to return"
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "TODO not found"
+    patch:
+      summary: "Update an existing TODO"
+      operationId: "patchTodoById"
+      x-exegesis-controller: todoController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoPatch'
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "TODO id to delete"
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "Success"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "TODO not found"
+    delete:
+      summary: "Deletes a TODO"
+      description: ""
+      operationId: "deleteTodo"
+      x-exegesis-controller: todoController
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "TODO id to delete"
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "Successful deletion"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "TODO not found"
+
+components:
+  schemas:
+    Todo:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        title:
+          type: "string"
+        body:
+          type: "string"
+        precedence:
+          type: "string"
+          enum:
+          - "low"
+          - "medium"
+          - "high"
+        complete:
+          type: "boolean"
+          default: false
+    TodoPost:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+          # required: true
+        body:
+          type: "string"
+          # required: true
+        precedence:
+          type: "string"
+          # required: true
+          enum:
+          - "low"
+          - "medium"
+          - "high"
+    TodoPatch:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+          # required: false
+        body:
+          type: "string"
+          # required: false
+        precedence:
+          type: "string"
+          # required: false
+          enum:
+          - "low"
+          - "medium"
+          - "high"

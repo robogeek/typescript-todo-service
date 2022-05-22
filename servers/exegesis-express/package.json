@@ -1,0 +1,34 @@
+{
+  "name": "exegesis-express",
+  "version": "1.0.0",
+  "description": "",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "serve": "node ./dist/index.js",
+    "monitor": "nodemon --config nodemon.json dist/index.js"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.x",
+    "@types/errorhandler": "^1.5.x",
+    "@types/express": "^4.17.x",
+    "@types/method-override": "0.0.31",
+    "@types/morgan": "^1.9.x",
+    "@types/node": "^17.0.34",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "exegesis-express": "^4.0.0",
+    "cookie-parser": "^1.4.x",
+    "body-parser": "^1.19.x",
+    "express": "^4.18.1"
+  }
+}
