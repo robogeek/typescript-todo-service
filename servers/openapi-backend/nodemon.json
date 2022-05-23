@@ -1,0 +1,11 @@
+{
+    "verbose": true,
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "ignoreRoot": [ ".git" ],
+    "watch": [
+        "dist"
+    ],
+    "ext": "js,json,css,html"
+}
