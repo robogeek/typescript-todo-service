@@ -1,7 +1,5 @@
 
 
-import * as util from 'util';
-
 import 'source-map-support/register';
 import OpenAPIBackend from 'openapi-backend';
 import Express from 'express';
