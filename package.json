@@ -7,7 +7,8 @@
     "edit-spec": "docker run -p 80:8080 -v $(pwd):/tmp -e SWAGGER_FILE=/tmp/todo.yml swaggerapi/swagger-editor",
     "preview-specification": "docker compose --file docker-compose-preview-spec.yml up",
     "preview-specification-simple": "docker compose --file docker-compose-preview-spec-simple.yml up",
-    "docker-edit-specification": "docker compose --file docker-compose-edit-spec.yml up"
+    "docker-edit-specification": "docker compose --file docker-compose-edit-spec.yml up",
+    "generate-swagger-codegen-v3": "docker run --rm -v ${PWD}:/local swaggerapi/swagger-codegen-cli-v3  generate -i /local/todo.yml -l nodejs-server -o /local/servers/swagger-codegen"
   },
   "repository": {
     "type": "git",
