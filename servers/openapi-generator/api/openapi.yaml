@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: David Herron
+    url: https://davidherron.com
+  description: A simple TODO application
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Simple TODO
+  version: 0.0.1
+servers:
+- url: /
+paths:
+  /todo:
+    post:
+      operationId: createTodo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoPost'
+        description: Parameters for creating a TODO
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Invalid status value
+      summary: Create a TODO
+      x-eov-operation-handler: controllers/DefaultController
+  /todos/all:
+    get:
+      description: ""
+      operationId: listTodos
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Todo'
+                type: array
+          description: Successful
+        "400":
+          description: Invalid status value
+      summary: List all TODO items
+      x-eov-operation-handler: controllers/DefaultController
+  /todos/{id}:
+    delete:
+      description: ""
+      operationId: deleteTodo
+      parameters:
+      - description: TODO id to delete
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Successful deletion
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: TODO not found
+      summary: Deletes a TODO
+      x-eov-operation-handler: controllers/DefaultController
+    get:
+      description: Returns a single TODO
+      operationId: getTodoById
+      parameters:
+      - description: ID of Todo to return
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: TODO not found
+      summary: Find TODO by ID
+      x-eov-operation-handler: controllers/DefaultController
+    patch:
+      operationId: patchTodoById
+      parameters:
+      - description: TODO id to delete
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoPatch'
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: TODO not found
+      summary: Update an existing TODO
+      x-eov-operation-handler: controllers/DefaultController
+components:
+  schemas:
+    Todo:
+      example:
+        id: id
+        title: title
+        body: body
+        complete: false
+        precedence: low
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+        precedence:
+          enum:
+          - low
+          - medium
+          - high
+          type: string
+        complete:
+          default: false
+          type: boolean
+      type: object
+    TodoPost:
+      example:
+        title: title
+        body: body
+        precedence: low
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        precedence:
+          enum:
+          - low
+          - medium
+          - high
+          type: string
+      type: object
+    TodoPatch:
+      example:
+        title: title
+        body: body
+        precedence: low
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        precedence:
+          enum:
+          - low
+          - medium
+          - high
+          type: string
+      type: object
